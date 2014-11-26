@@ -26,3 +26,18 @@ Structure
 =========
 Win@Life uses AngularJS for the front end interface while talking to NodeJS for server side applications. Storage of user information will be held in a MongoDB Database while information on the functionality of the award system will be held in JSON files on the server. 
 
+Views:
+- Login Screen
+- Control Panel
+
+Controllers:
+- Login Logic
+- Attribute Report
+- Logger
+
+DB Schema:  
+- User ( id, name, password, email )
+- UserAttr ( uid, str, dex, con, int, wis, cha )
+- LogEvent ( id, plusstr, plusdex, pluscon, plusint, pluswis, pluscha )
+- Category ( id, desc )
+- Event_to_Category ( lid, cid )
