@@ -1,62 +1,62 @@
 /**
  * Using Rails-like standard naming convention for endpoints.
- * GET     /things              ->  index
- * POST    /things              ->  create
- * GET     /things/:id          ->  show
- * PUT     /things/:id          ->  update
- * DELETE  /things/:id          ->  destroy
+ * GET     /events              ->  index
+ * POST    /events              ->  create
+ * GET     /events/:id          ->  show
+ * PUT     /events/:id          ->  update
+ * DELETE  /events/:id          ->  destroy
  */
 
 'use strict';
 
 var _ = require('lodash');
-var Thing = require('./thing.model');
+var Event = require('./event.model');
 
-// Get list of things
+// Get list of loggable events
 exports.index = function(req, res) {
-  Thing.find(function (err, things) {
+  Event.find(function (err, events) {
     if(err) { return handleError(res, err); }
-    return res.json(200, things);
+    return res.json(200, events);
   });
 };
 
-// Get a single thing
+// Get a single event
 exports.show = function(req, res) {
-  Thing.findById(req.params.id, function (err, thing) {
+  Event.findById(req.params.id, function (err, event) {
     if(err) { return handleError(res, err); }
-    if(!thing) { return res.send(404); }
-    return res.json(thing);
+    if(!event) { return res.send(404); }
+    return res.json(event);
   });
 };
 
-// Creates a new thing in the DB.
+// Creates a new event in the DB.
 exports.create = function(req, res) {
-  Thing.create(req.body, function(err, thing) {
+  Event.create(req.body, function(err, event) {
     if(err) { return handleError(res, err); }
-    return res.json(201, thing);
+    return res.json(201, event);
   });
 };
 
-// Updates an existing thing in the DB.
+// Updates an existing event in the DB.
 exports.update = function(req, res) {
   if(req.body._id) { delete req.body._id; }
-  Thing.findById(req.params.id, function (err, thing) {
+  Event.findById(req.params.id, function (err, event) {
     if (err) { return handleError(res, err); }
-    if(!thing) { return res.send(404); }
-    var updated = _.merge(thing, req.body);
+    if(!event) { return res.send(404); }
+    var updated = _.merge(event, req.body);
     updated.save(function (err) {
       if (err) { return handleError(res, err); }
-      return res.json(200, thing);
+      return res.json(200, event);
     });
   });
 };
 
-// Deletes a thing from the DB.
+// Deletes a event from the DB.
 exports.destroy = function(req, res) {
-  Thing.findById(req.params.id, function (err, thing) {
+  Event.findById(req.params.id, function (err, event) {
     if(err) { return handleError(res, err); }
-    if(!thing) { return res.send(404); }
-    thing.remove(function(err) {
+    if(!event) { return res.send(404); }
+    event.remove(function(err) {
       if(err) { return handleError(res, err); }
       return res.send(204);
     });

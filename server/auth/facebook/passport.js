@@ -20,7 +20,7 @@ exports.setup = function (User, config) {
             name: profile.displayName,
             email: profile.emails[0].value,
             role: 'user',
-            username: profile.username,
+            login: profile.username,
             provider: 'facebook',
             facebook: profile._json
           });

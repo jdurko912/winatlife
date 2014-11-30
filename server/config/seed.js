@@ -5,39 +5,59 @@
 
 'use strict';
 
-var Thing = require('../api/thing/thing.model');
+var Event = require('../api/event/event.model');
 var User = require('../api/user/user.model');
 
-Thing.find({}).remove(function() {
-  Thing.create({
-    name : 'Development Tools',
-    info : 'Integration with popular tools such as Bower, Grunt, Karma, Mocha, JSHint, Node Inspector, Livereload, Protractor, Jade, Stylus, Sass, CoffeeScript, and Less.'
+Event.find({}).remove(function() {
+  Event.create({
+    name : 'Personal'
   }, {
-    name : 'Server and Client integration',
-    info : 'Built with a powerful and fun stack: MongoDB, Express, AngularJS, and Node.'
+    name : 'Professional'
   }, {
-    name : 'Smart Build System',
-    info : 'Build system ignores `spec` files, allowing you to keep tests alongside code. Automatic injection of scripts and styles into your index.html'
+    name : 'Academic'
   },  {
-    name : 'Modular Structure',
-    info : 'Best practice client and server structures allow for more code reusability and maximum scalability'
+    name : 'Spent over an hour at the gym',
+    parent_name: 'Personal',
+    attrs:  [
+        { name:  "str", points:  2 },
+        { name:  "dex", points:  1 },
+        { name:  "con", points:  1 }
+    ]
   },  {
-    name : 'Optimized Build',
-    info : 'Build process packs up your templates as a single JavaScript payload, minifies your scripts/css/images, and rewrites asset names for caching.'
+      name : 'Got a promotion',
+      parent_name: 'Professional',
+      attrs:  [
+          { name:  "wis", points:  2 },
+          { name:  "cha", points:  1 }
+      ]
   },{
-    name : 'Deployment Ready',
-    info : 'Easily deploy your app to Heroku or Openshift with the heroku and openshift subgenerators'
+      name : 'Got an A on the big project',
+      parent_name: 'Academic',
+      attrs:  [
+          { name:  "int", points:  2 },
+          { name:  "wis", points:  3 }
+      ]
   });
 });
 
 User.find({}).remove(function() {
   User.create({
     provider: 'local',
+    login:  'testuser',
     name: 'Test User',
     email: 'test@test.com',
+    attrs: [
+        { name:  "str", points:  4 },
+        { name:  "dex", points:  2 },
+        { name:  "con", points:  3 },
+        { name:  "int", points:  2 },
+        { name:  "wis", points:  4 },
+        { name:  "cha", points:  0 }
+    ],
     password: 'test'
   }, {
     provider: 'local',
+    login:  'admin',
     role: 'admin',
     name: 'Admin',
     email: 'admin@admin.com',

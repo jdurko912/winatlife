@@ -21,6 +21,7 @@ angular.module('winatlifeApp')
         var deferred = $q.defer();
 
         $http.post('/auth/local', {
+          login:  user.login,
           email: user.email,
           password: user.password
         }).
@@ -91,6 +92,25 @@ angular.module('winatlifeApp')
           return cb(err);
         }).$promise;
       },
+
+        /**
+         * Update Attributes
+         *
+         * @param  {Array of { name:  value }}   newattrs
+         * @param  {Function} callback    - optional
+         * @return {Promise}
+         */
+        updateAttributes: function(newattrs, callback) {
+            var cb = callback || angular.noop;
+
+            return User.updateAttributes({ id: currentUser._id }, {
+                newAttributes:  JSON.stringify(newattrs)
+            }, function(user) {
+                return cb(user);
+            }, function(err) {
+                return cb(err);
+            }).$promise;
+        },
 
       /**
        * Gets all available info on authenticated user

@@ -11,12 +11,13 @@ angular.module('winatlifeApp')
       if(form.$valid) {
         Auth.createUser({
           name: $scope.user.name,
+          login:  $scope.user.login,
           email: $scope.user.email,
           password: $scope.user.password
         })
         .then( function() {
           // Account created, redirect to home
-          $location.path('/');
+          $location.path('/user/'.concat($scope.user.login));
         })
         .catch( function(err) {
           err = err.data;

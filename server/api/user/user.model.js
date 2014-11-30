@@ -6,12 +6,19 @@ var crypto = require('crypto');
 var authTypes = ['github', 'twitter', 'facebook', 'google'];
 
 var UserSchema = new Schema({
+  login:  { type:  String, lowercase:  true, required:  true },
   name: String,
   email: { type: String, lowercase: true },
   role: {
     type: String,
     default: 'user'
   },
+  attrs: [
+      {
+          name:  { type: String, required: true },
+          points:  { type:  Number, required: true }
+      }
+  ],
   hashedPassword: String,
   provider: String,
   salt: String,
@@ -39,7 +46,8 @@ UserSchema
   .get(function() {
     return {
       'name': this.name,
-      'role': this.role
+      'role': this.role,
+      'attrs':  this.attrs
     };
   });
 
@@ -87,6 +95,30 @@ UserSchema
       respond(true);
     });
 }, 'The specified email address is already in use.');
+
+// Validate login is not taken
+UserSchema
+    .path('login')
+    .validate(function(value, respond) {
+        var self = this;
+        this.constructor.findOne({login: value}, function(err, user) {
+            if(err) throw err;
+            if(user) {
+                if(self.id === user.id) return respond(true);
+                return respond(false);
+            }
+            respond(true);
+        });
+    }, 'The specified login name is already in use.');
+
+// Validate there are no spaces or special characters in login
+UserSchema
+    .path('login')
+    .validate(function(value, respond) {
+        var self = this;
+        if (self.login.search(/^[a-zA-Z0-9_-]{3,16}$/) === -1)  return respond(false);
+        return respond(true);
+    }, 'Login names must be between 3 to 16 characters and only have letters, numbers, underscores and hyphens');
 
 var validatePresenceOf = function(value) {
   return value && value.length;

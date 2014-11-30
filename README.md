@@ -29,6 +29,7 @@ Win@Life uses AngularJS for the front end interface while talking to NodeJS for 
 Views:
 - Login Screen
 - Control Panel
+- Configuration
 
 Controllers:
 - Login Logic
@@ -36,8 +37,9 @@ Controllers:
 - Logger
 
 DB Schema:  
-- User ( id, name, password, email )
-- UserAttr ( uid, str, dex, con, int, wis, cha )
-- LogEvent ( id, plusstr, plusdex, pluscon, plusint, pluswis, pluscha )
-- Category ( id, desc )
-- Event_to_Category ( lid, cid )
+- User ( id, login, attrs, name, password, email )
+--attrs ( name, points )
+*login is a unique username used for the URL
+- Event ( id, name, parent_name, attrs )
+--attrs in this case will be the same structure as User, but with the "points" field indicating the addition of points
+*Categories for events will be events that contain no attrs

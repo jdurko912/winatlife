@@ -3,10 +3,15 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
-var ThingSchema = new Schema({
-  name: String,
-  info: String,
-  active: Boolean
+var EventSchema = new Schema({
+  name: { type: String, lowercase:  true, required: true, unique:  true },
+  parent_name:  { type: String, lowercase:  true },
+  attrs: [
+    {
+      name:  { type: String, required: true },
+      points:  { type:  Number, required: true }
+    }
+  ]
 });
 
-module.exports = mongoose.model('Thing', ThingSchema);
+module.exports = mongoose.model('Event', EventSchema);

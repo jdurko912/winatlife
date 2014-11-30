@@ -27,6 +27,14 @@ exports.create = function (req, res, next) {
   var newUser = new User(req.body);
   newUser.provider = 'local';
   newUser.role = 'user';
+  newUser.attr = {
+    "str" : 0,
+    "dex" : 0,
+    "con" : 0,
+    "int" : 0,
+    "wis" : 0,
+    "cha" : 0
+  };
   newUser.save(function(err, user) {
     if (err) return validationError(res, err);
     var token = jwt.sign({_id: user._id }, config.secrets.session, { expiresInMinutes: 60*5 });
@@ -77,6 +85,22 @@ exports.changePassword = function(req, res, next) {
       res.send(403);
     }
   });
+};
+
+/**
+ * Update User attributes
+ */
+exports.updateAttributes = function(req, res, next) {
+    var userId = req.user._id;
+    var newAttr = req.body.newAttributes;
+
+    User.findById(userId, function (err, user) {
+        user.attrs = JSON.parse(newAttr);
+        user.save(function(err) {
+            if (err) return validationError(res, err);
+            res.send(200);
+        });
+    });
 };
 
 /**

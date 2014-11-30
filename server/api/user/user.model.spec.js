@@ -6,9 +6,18 @@ var User = require('./user.model');
 
 var user = new User({
   provider: 'local',
+  login:  'fakeuser',
   name: 'Fake User',
   email: 'test@test.com',
-  password: 'password'
+  password: 'password',
+  attrs:  [
+      { name:  "str", points:  1 },
+      { name:  "dex", points:  1 },
+      { name:  "con", points:  1 },
+      { name:  "int", points:  1 },
+      { name:  "wis", points:  1 },
+      { name:  "cha", points:  1 }
+  ]
 });
 
 describe('User Model', function() {
@@ -49,6 +58,22 @@ describe('User Model', function() {
       done();
     });
   });
+
+  it('should fail when saving without attributes', function(done) {
+      user.attr = {};
+      user.save(function(err) {
+          should.exist(err);
+          done();
+      });
+  });
+
+  it('should fail when saving without a login', function(done) {
+      user.login = {};
+      user.save(function(err) {
+          should.exist(err);
+          done();
+      });
+  })
 
   it("should authenticate user if password is valid", function() {
     return user.authenticate('password').should.be.true;

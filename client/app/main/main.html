@@ -2,19 +2,36 @@
 
 <header class="hero-unit" id="banner">
   <div class="container">
-    <h1>'Allo, 'Allo!</h1>
-    <p class="lead">Kick-start your next web app with Angular Fullstack</p>
-    <img src="assets/images/yeoman.png" alt="I'm Yeoman">
+    <h1 class="page-header">Attributes</h1>
+    <!--p class="lead">Kick-start your next web app with Angular Fullstack</p-->
+      <ul class="list-unstyled">
+        <li class="img-size-large"><img src="assets/images/str.png" alt="Strength" width=50>  {{getAttr('str') || 0}}
+        </li>
+        <li><img src="assets/images/dex.png" alt="Dexterity" width=50>  {{getAttr('dex') || 0}}
+        </li>
+        <li><img src="assets/images/con.png" alt="Constitution" width=50>  {{getAttr('con') || 0}}
+          </li>
+        <li><img src="assets/images/int.png" alt="Intelligence" width=50>  {{getAttr('int') || 0}}
+          </li>
+        <li><img src="assets/images/wis.png" alt="Wisdom" width=50>  {{getAttr('wis') || 0}}
+          </li>
+        <li><img src="assets/images/cha.png" alt="Charisma" width=50>  {{getAttr('cha') || 0}}
+          </li>
+      </ul>
   </div>
 </header>
 
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
-      <h1 class="page-header">Features:</h1>
-      <ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="thing in awesomeThings">
-        <li><a href="#" tooltip="{{thing.info}}">{{thing.name}}</a></li>
-      </ul>
+      <h1 class="page-header">Log</h1>
+      <accordion close-others="true">
+        <accordion-group ng-repeat="parent in awesomeEvents | filter:{parent_name:'!'}" heading="{{parent.name | titleCase}}">
+            <div ng-repeat="child in awesomeEvents | filter:{parent_name:parent.name}" class="accordion-inner">
+                <a href="" ng-click="updateAttr(child.attrs)">{{child.name | titleCase}}</a>
+            </div>
+        </accordion-group></li>
+      </accordion>
     </div>
   </div>
 </div>

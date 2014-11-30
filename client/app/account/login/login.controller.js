@@ -10,12 +10,12 @@ angular.module('winatlifeApp')
 
       if(form.$valid) {
         Auth.login({
-          email: $scope.user.email,
+          login: $scope.user.login,
           password: $scope.user.password
         })
         .then( function() {
           // Logged in, redirect to home
-          $location.path('/');
+          $location.path('/user/'.concat($scope.user.login));
         })
         .catch( function(err) {
           $scope.errors.other = err.message;

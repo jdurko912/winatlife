@@ -12,6 +12,12 @@ angular.module('winatlifeApp')
           controller:'password'
         }
       },
+      updateAttributes: {
+        method:  'PUT',
+        params: {
+          controller: 'attributes'
+        }
+      },
       get: {
         method: 'GET',
         params: {
