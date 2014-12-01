@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('winatlifeApp')
-  .controller('MainCtrl', function ($scope, $http, Auth) {
+    .controller('MainCtrl', function ($scope, $http, Auth) {
     $scope.awesomeEvents = [];
     $scope.getCurrentUser = Auth.getCurrentUser;
     $scope.user = $scope.getCurrentUser();
@@ -29,15 +29,15 @@ angular.module('winatlifeApp')
         var indexOfAttr = 0;
         angular.forEach(newattr, function( attr ){
           indexOfAttr = -1;
-          _.each(this, function (data, index){
+          _.each($scope.user.attrs, function (data, index){
              if (data.name === attr.name) {
                  indexOfAttr = index;
                  return;
              }
           });
-          if (indexOfAttr === -1) this.push(attr);
-          else this[indexOfAttr].points += attr.points;
-        }, $scope.user.attrs);
+          if (indexOfAttr === -1) $scope.user.attrs.push(attr);
+          else $scope.user.attrs[indexOfAttr].points += attr.points;
+        });
         Auth.updateAttributes($scope.user.attrs);
     };
 
@@ -52,19 +52,6 @@ angular.module('winatlifeApp')
     $scope.deleteEvent = function(event) {
       $http.delete('/api/events/' + event._id);
     };
-    /*
-    $scope.chartOptions = {
-        seriesDefaults: {
-            // Make this a pie chart.
-            renderer: jQuery.jqplot.PieRenderer,
-            rendererOptions: {
-                // Put data labels on the pie slices.
-                // By default, labels show the percentage of the slice.
-                showDataLabels: true
-            }
-        },
-        legend: { show: true, location: 'e' }
-    };*/
   })
   .filter('titleCase', function() {
     return function (input) {

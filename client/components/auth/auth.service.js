@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('winatlifeApp')
-  .factory('Auth', function Auth($location, $rootScope, $http, User, $cookieStore, $q) {
+  .factory('Auth', function Auth($location, $rootScope, $http, User, $cookieStore, $q, Event) {
     var currentUser = {};
     if($cookieStore.get('token')) {
       currentUser = User.get();
@@ -40,6 +40,7 @@ angular.module('winatlifeApp')
         return deferred.promise;
       },
 
+      /**
       /**
        * Delete access token and user info
        *
@@ -107,6 +108,46 @@ angular.module('winatlifeApp')
                 newAttributes:  JSON.stringify(newattrs)
             }, function(user) {
                 return cb(user);
+            }, function(err) {
+                return cb(err);
+            }).$promise;
+        },
+
+        /**
+         * Delete Event
+         *
+         * @param  Event object
+         * @param  {Function} callback    - optional
+         * @return {Promise}
+         */
+        deleteEvent: function(event, callback) {
+            var cb = callback || angular.noop;
+
+            return Event.deleteEvent({ id: event._id }, {
+                user:  JSON.stringify(currentUser)
+            }, function(event) {
+                return cb(event);
+            }, function(err) {
+                return cb(err);
+            }).$promise;
+        },
+
+        /**
+         * Create a New Event
+         *
+         * @param  Event object
+         * @param  {Function} callback    - optional
+         * @return {Promise}
+         */
+        addEvent: function(event, callback) {
+            var cb = callback || angular.noop;
+
+            return Event.addEvent({ id: '' }, {
+                name:  event.name,
+                parent_name:  event.parent_name,
+                attrs:  JSON.stringify(event.attrs)
+            }, function (event) {
+                return cb(event);
             }, function(err) {
                 return cb(err);
             }).$promise;

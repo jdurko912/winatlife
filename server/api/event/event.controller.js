@@ -31,9 +31,13 @@ exports.show = function(req, res) {
 
 // Creates a new event in the DB.
 exports.create = function(req, res) {
-  Event.create(req.body, function(err, event) {
-    if(err) { return handleError(res, err); }
-    return res.json(201, event);
+  var newEvent = new Event();
+  newEvent.name = req.body.name;
+  newEvent.parent_name = req.body.parent_name;
+  newEvent.attrs = JSON.parse(req.body.attrs);
+  newEvent.save(function(err) {
+    if (err) return res.json(422, err);
+    res.json(200);
   });
 };
 

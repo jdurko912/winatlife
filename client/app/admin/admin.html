@@ -17,6 +17,7 @@
     </li>
   </ul>
 </div>
+
 <div class="container">
   <h2>Add Event</h2>
     <form class="form" name="form" ng-submit="addEvent(form)" novalidate>
@@ -36,12 +37,12 @@
                                             'has-error': form.attrs.$invalid && submitted }">
             <label>Attributes</label><br>
 
-            <input size='9' type="text" ng-model="newevent.attrs.str" class="form-control" placeholder="Strength">
-            <input size='9' type="text" ng-model="newevent.attrs.dex" class="form-control" placeholder="Dexterity">
-            <input size='9' type="text" ng-model="newevent.attrs.con" class="form-control" placeholder="Constitution">
-            <input size='9' type="text" ng-model="newevent.attrs.int" class="form-control" placeholder="Intelligence">
-            <input size='9' type="text" ng-model="newevent.attrs.wis" class="form-control" placeholder="Wisdom">
-            <input size='9' type="text" ng-model="newevent.attrs.cha" class="form-control" placeholder="Charisma">
+            <input onlyDigits size='9' type="text" ng-model="newevent.attrs.str" class="form-control" placeholder="Strength">
+            <input onlyDigits size='9' type="text" ng-model="newevent.attrs.dex" class="form-control" placeholder="Dexterity">
+            <input onlyDigits size='9' type="text" ng-model="newevent.attrs.con" class="form-control" placeholder="Constitution">
+            <input onlyDigits size='9' type="text" ng-model="newevent.attrs.int" class="form-control" placeholder="Intelligence">
+            <input onlyDigits size='9' type="text" ng-model="newevent.attrs.wis" class="form-control" placeholder="Wisdom">
+            <input onlyDigits size='9' type="text" ng-model="newevent.attrs.cha" class="form-control" placeholder="Charisma">
             <p class="help-block" ng-show="form.attrs.$error.required && submitted">
                 Doesn't look like a valid email.
             </p>
@@ -62,7 +63,7 @@
         </div><br>
 
         <div>
-            <button class="btn btn-primary" type="submit">
+            <button class="btn btn-primary" type="submit" ng-disabled="!form.$valid">
                 Add
             </button>
         </div>
