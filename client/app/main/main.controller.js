@@ -17,10 +17,12 @@ angular.module('winatlifeApp')
     };
 
     $scope.getAttr = function(name) {
-        if (typeof $scope.user.attrs === "undefined") return;
-        return $scope.user.attrs.filter(function(entry) {
+        if (typeof $scope.user.attrs === "undefined") return 0;
+        var attr = $scope.user.attrs.filter(function(entry) {
             return entry.name === name;
-        })[0].points;
+        })[0];
+        if (typeof attr === "undefined") return 0;
+        else return attr.points;
     };
 
     $scope.updateAttr = function(newattr) {
@@ -50,6 +52,19 @@ angular.module('winatlifeApp')
     $scope.deleteEvent = function(event) {
       $http.delete('/api/events/' + event._id);
     };
+    /*
+    $scope.chartOptions = {
+        seriesDefaults: {
+            // Make this a pie chart.
+            renderer: jQuery.jqplot.PieRenderer,
+            rendererOptions: {
+                // Put data labels on the pie slices.
+                // By default, labels show the percentage of the slice.
+                showDataLabels: true
+            }
+        },
+        legend: { show: true, location: 'e' }
+    };*/
   })
   .filter('titleCase', function() {
     return function (input) {

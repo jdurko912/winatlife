@@ -1,12 +1,85 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
+
+
+<div class="panel panel-xs">
+    <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+</div>
+
+
 <div class="container">
-  <p>The delete user and user index api routes are restricted to users with the 'admin' role.</p>
+  <h2>User Deletion</h2>
   <ul class="list-group">
     <li class="list-group-item" ng-repeat="user in users">
         <strong>{{user.name}}</strong><br>
-        <span class="text-muted">{{user.email}}</span>
-        <a ng-click="delete(user)" class="trash"><span class="glyphicon glyphicon-trash pull-right"></span></a>
+        <span class="text-muted">{{user.login}}</span>
+        <a ng-click="deleteUser(user)" class="trash"><span class="glyphicon glyphicon-trash pull-right"></span></a>
+    </li>
+  </ul>
+</div>
+<div class="container">
+  <h2>Add Event</h2>
+    <form class="form" name="form" ng-submit="addEvent(form)" novalidate>
+
+        <div class="form-group" ng-class="{ 'has-success': form.name.$valid && submitted,
+                                            'has-error': form.name.$invalid && submitted }">
+            <label>Description</label>
+
+            <input type="text" name="name" class="form-control" ng-model="newevent.name"
+                   required/>
+            <p class="help-block" ng-show="form.name.$error.required && submitted">
+                A description is required
+            </p>
+        </div>
+
+        <div class="form-inline" ng-class="{ 'has-success': form.attrs.$valid && submitted,
+                                            'has-error': form.attrs.$invalid && submitted }">
+            <label>Attributes</label><br>
+
+            <input size='9' type="text" ng-model="newevent.attrs.str" class="form-control" placeholder="Strength">
+            <input size='9' type="text" ng-model="newevent.attrs.dex" class="form-control" placeholder="Dexterity">
+            <input size='9' type="text" ng-model="newevent.attrs.con" class="form-control" placeholder="Constitution">
+            <input size='9' type="text" ng-model="newevent.attrs.int" class="form-control" placeholder="Intelligence">
+            <input size='9' type="text" ng-model="newevent.attrs.wis" class="form-control" placeholder="Wisdom">
+            <input size='9' type="text" ng-model="newevent.attrs.cha" class="form-control" placeholder="Charisma">
+            <p class="help-block" ng-show="form.attrs.$error.required && submitted">
+                Doesn't look like a valid email.
+            </p>
+        </div><br>
+
+
+
+        <div class="form-group" ng-class="{ 'has-success': form.parent_name.$valid && submitted,
+                                            'has-error': form.parent_name.$invalid && submitted }">
+            <select class="form-control dropdown-toggle"
+                    ng-options="event.name for event in awesomeEvents | filter:{parent_name:'!'}"
+                    ng-model="newevent.parent_name">
+                <option value=''>-- Select a Category --</option>
+            </select>
+            <p class="help-block" ng-show="form.parent_name.$error.required && submitted">
+                Event must have a category
+            </p>
+        </div><br>
+
+        <div>
+            <button class="btn btn-primary" type="submit">
+                Add
+            </button>
+        </div>
+    </form>
+</div>
+
+<div class="container">
+  <h2>Remove Events</h2>
+  <ul class="list-group">
+    <li class="list-group-item" ng-repeat="event in awesomeEvents | filter:{parent_name:'!!'}">
+      <strong>{{event.name}}</strong><br>
+          <ul class="list-inline">
+              <li ng-repeat="attr in event.attrs">
+                 <span class="text-muted">+{{attr.points}} to {{attr.name}}</span>
+              </li>
+          </ul>
+      <a ng-click="deleteEvent(event)" class="trash"><span class="glyphicon glyphicon-trash pull-right"></span></a>
     </li>
   </ul>
 </div>

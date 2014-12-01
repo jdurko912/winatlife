@@ -1,23 +1,32 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
 <header class="hero-unit" id="banner">
-  <div class="container">
-    <h1 class="page-header">Attributes</h1>
-    <!--p class="lead">Kick-start your next web app with Angular Fullstack</p-->
+  <h1 class="page-header">Attributes</h1>
+  <div class="container-fluid">
+    <div>
       <ul class="list-unstyled">
-        <li class="img-size-large"><img src="assets/images/str.png" alt="Strength" width=50>  {{getAttr('str') || 0}}
+        <li><img src="assets/images/str.png" alt="Strength" width=50 title="Strength">
+            <span style="font-size:30px">{{getAttr('str') || 0}}</span>
         </li>
-        <li><img src="assets/images/dex.png" alt="Dexterity" width=50>  {{getAttr('dex') || 0}}
+        <li><img src="assets/images/dex.png" alt="Dexterity" width=50 title="Dexterity">
+            <span style="font-size:30px">{{getAttr('dex') || 0}}</span>
         </li>
-        <li><img src="assets/images/con.png" alt="Constitution" width=50>  {{getAttr('con') || 0}}
+        <li><img src="assets/images/con.png" alt="Constitution" width=50 title="Constitution">
+            <span style="font-size:30px">{{getAttr('con') || 0}}</span>
           </li>
-        <li><img src="assets/images/int.png" alt="Intelligence" width=50>  {{getAttr('int') || 0}}
+        <li><img src="assets/images/int.png" alt="Intelligence" width=50 title="Intelligence">
+            <span style="font-size:30px">{{getAttr('int') || 0}}</span>
           </li>
-        <li><img src="assets/images/wis.png" alt="Wisdom" width=50>  {{getAttr('wis') || 0}}
+        <li><img src="assets/images/wis.png" alt="Wisdom" width=50 title="Wisdom">
+            <span style="font-size:30px">{{getAttr('wis') || 0}}</span>
           </li>
-        <li><img src="assets/images/cha.png" alt="Charisma" width=50>  {{getAttr('cha') || 0}}
+        <li><img src="assets/images/cha.png" alt="Charisma" width=50 title="Charisma">
+            <span style="font-size:30px">{{getAttr('cha') || 0}}</span>
           </li>
       </ul>
+    </div>
+    <!--div ui-chart="user.attrs" chart-options="chartOptions"-->
+    </div>
   </div>
 </header>
 

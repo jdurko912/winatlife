@@ -10,7 +10,7 @@ angular.module('winatlifeApp')
 
     $scope.menu = [{
         'title': 'Home',
-        'link': '/user/'.concat($scope.getCurrentUser().name)
+        'link': '/user/'.concat($scope.getCurrentUser().login)
     }];
 
     $scope.logout = function() {
