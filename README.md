@@ -8,7 +8,7 @@ To Pull and Run
 Install git
 Install npm
 Run:
-- npm install grunt bower yo -g
+- npm install grunt grunt-cli bower yo -g
 - git init
 - git pull http://github.com/jdurko912/winatlife
 - grunt serve
